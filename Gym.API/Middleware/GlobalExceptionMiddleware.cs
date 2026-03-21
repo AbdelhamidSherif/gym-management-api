@@ -1,0 +1,61 @@
+﻿using Gym.Application.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Gym.API.Middleware
+{
+    public sealed class GlobalExceptionMiddleware : IMiddleware
+    {
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        {
+            try
+            {
+                await next(context);
+            }
+            catch (NotFoundException ex)
+            {
+                context.Response.StatusCode = StatusCodes.Status404NotFound;
+
+                await context.Response.WriteAsJsonAsync(new ProblemDetails
+                {
+                    Title = "Not Found",
+                    Detail = ex.Message,
+                    Status = StatusCodes.Status404NotFound
+                });
+            }
+
+            catch (BusinessRuleException ex)
+            {
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+                await context.Response.WriteAsJsonAsync(new ProblemDetails
+                {
+                    Title = "Business Rule Violation",
+                    Detail = ex.Message,
+                    Status = StatusCodes.Status400BadRequest
+                });
+            }
+
+            catch(ConflictException ex)
+            {
+                context.Response.StatusCode = StatusCodes.Status409Conflict;
+                await context.Response.WriteAsJsonAsync(new ProblemDetails
+                {
+                    Title = "Conflict",
+                    Detail = ex.Message,
+                    Status = StatusCodes.Status409Conflict
+                });
+            }
+
+            catch (Exception)
+            {
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                await context.Response.WriteAsJsonAsync(new ProblemDetails
+                {
+                    Title = "Server Error",
+                    Detail = "Unexpected error occured.",
+                    Status = StatusCodes.Status500InternalServerError
+                });
+            }
+        }
+    }
+}
