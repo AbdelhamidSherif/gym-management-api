@@ -57,6 +57,23 @@ API  ──►  Infrastructure  ──►  Application  ──►  Domain
 
 ---
 
+## 📸 API Screenshots
+
+### Members & Bookings
+![members-bookings](./Images/Booking%20and%20Members.PNG)
+### Membership Plans & Sessions
+![membershipplans-sessions](Images/MembershipPlans%20and%20Sessions%20and%20Trainers.PNG)
+
+---
+
+## 🗄️ Schemas
+![Schema 1](Images/Schema_1.PNG)
+![Schema 2](Images/Schema_2.PNG)
+![Schema 3](Images/Schema_3.PNG)
+
+---
+```
+
 ## 🛠️ Technologies Used
 
 | Technology | Purpose |
