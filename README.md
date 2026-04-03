@@ -72,7 +72,7 @@ API  ──►  Infrastructure  ──►  Application  ──►  Domain
 ![Schema 3](Images/Schema_3.PNG)
 
 ---
-```
+
 
 ## 🛠️ Technologies Used
 
